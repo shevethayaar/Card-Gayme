@@ -2,7 +2,7 @@ from Techzadanie import SUITS, RANKS  # Import constants
 from itertools import product  # Import method
 from random import shuffle # Import shuffle method
 
-class Card:  # Creating a class of ONE card
+class card:  # Creating a class of ONE card
 
     def __init__(self, suit, rank, value, power):  # Initialization of card
         self.suit = suit
@@ -14,10 +14,11 @@ class Card:  # Creating a class of ONE card
         message = 'Suit:' + self.suit + '\nRank: ' + str(self.rank) + '\nValue: ' + str(self.value) + '\nPower: ' + str(self.power)
         return message
 
-class Deck:    # Creating ALL of the deck
+
+class deck:    # Creating ALL of the deck
 
     def __init__(self):  # Initialization and randomizing of Deck
-        self.cards = self._create_deck()
+        self.cards = self._generate_deck()
         shuffle(self.cards)
 
 
@@ -34,7 +35,6 @@ class Deck:    # Creating ALL of the deck
                 value = 1
             elif rank.isdigit():
                 value = int(rank)
-
             if suit == 'Diamomd':   # Creating power of suit
                 power = 1
             elif suit == 'Spade':
@@ -43,10 +43,18 @@ class Deck:    # Creating ALL of the deck
                 power = 3
             elif suit == 'Club':
                 power = 4
-
-            c = Card(suit = suit, rank = rank, value = value, power = power)
+            c = card(suit = suit, rank = rank, value = value, power = power)
             cards.append(c)
         return cards
 
     def deal_one(self):  # Gives ONE card to hand
         return self.cards.pop()
+
+    def __gt__(self):     #Comparing of cards
+        if self.cards[0](self.value) > self.cards[1](self.value):
+            return True
+        elif self.cards[0](self.value) == self.cards[1](self.value):
+            if self.cards[0](self.power) > self.cards[1](self.power):
+                return True
+        else:
+            return False
